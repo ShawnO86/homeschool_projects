@@ -1,15 +1,19 @@
 def create_row(start, end):
-    '''Creates times table row from start to end, returns list of integers from index 1 to end.'''
+    '''Creates times table row from start to end,
+    returns list of integers from index 1 to end.'''
     #init row with 1s, extra element added for index 0.
     row = [1 for _ in range(end + 1)]
     #loop for row length.
-    for i in range(0, end + 1):
+    for i in range(1, end + 1):
         #set each value by multiplying
-        row[i] = start * i
+        row[i] = str(start * i)
+        if len(row[i]) < 2:
+            row[i] += ' ' 
     return row[1:]
 
 def create_cols(start, end, cols = {}):
-    '''Recursivly creates times table from each create_row() call, returns dictionary with a times table row multiplier as each key(1s, 2s, 3s, etc...)'''
+    '''Recursivly creates times table from each create_row() call, 
+    returns dictionary with a times table row multiplier as each key(1s, 2s, 3s, etc...)'''
     #base case returns if start meets end value
     if end < start:
         return
@@ -21,7 +25,6 @@ def create_cols(start, end, cols = {}):
     return cols
 
 
-
 if __name__ == "__main__":
     rows = int(input('Starting value: \n'))
     cols = int(input('Ending value: \n'))
@@ -29,11 +32,9 @@ if __name__ == "__main__":
     txtFile = 'timesTable.txt'
     file = open(txtFile, 'w')
     for key in table:
-        for ele in table[key]:
-            line = f'{ele:^4} | '
-            file.write(line)
-            print(line, end=' ')
+        line = ' | '.join(table[key])
+        print(line)
         print()
+        file.write(line)
         file.write('\n\n')
     file.close()
-    print(f'Times table has been created and written to {txtFile}.')

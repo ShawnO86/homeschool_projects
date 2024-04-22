@@ -1,0 +1,19 @@
+main {
+    display: flex;
+    gap: 1rem;
+}
+.cell {
+    cursor: pointer;
+    padding: 1rem;
+}
+.cell:hover .row_1 {
+    color: #fff;
+    background-color: blueviolet;
+}
+.highlight {
+    background-color: lightblue;
+}
+main>*:hover {
+    background-color: lightblue;
+} 
+

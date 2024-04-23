@@ -4,14 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Times Table Practice</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <style>
+    body {
+        background-color: #333;
+    }
+    main {
+        display: flex;
+        gap: 1rem;
+        color: #fff;
+        padding: 2rem;
+    }
+    .formula, .formula:hover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem;
+        padding: 2rem;
+        margin-left: 2rem;
+        font-weight: 700;
+        background-color: #333;
+        color: #fff;
+    }
+    .cell {
+        cursor: pointer;
+        padding: 2rem;
+        font-size: 2rem;
+    }
+    .cell:hover {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: -0.5rem;
+        padding: -0.75rem;
+        box-shadow: 3px 5px black;
+    }
+    main>*:hover {
+        background-color: lightblue;
+        color: #333;
+    } 
+    main:has(.row_1:hover) .row_1,
+    main:has(.row_2:hover) .row_2,
+    main:has(.row_3:hover) .row_3,
+    main:has(.row_4:hover) .row_4,
+    main:has(.row_5:hover) .row_5,
+    main:has(.row_6:hover) .row_6,
+    main:has(.row_7:hover) .row_7,
+    main:has(.row_8:hover) .row_8,
+    main:has(.row_9:hover) .row_9,
+    main:has(.row_10:hover) .row_10 {
+        background-color: greenyellow;
+        color: #333;
+    }
+    </style>
 </head>
+
 <body>
-    <main id="main">
-
-
-
-    </main>
+    <main id="main"></main>
 </body>
+<script>
+
+const main = document.querySelector('main');
+for (let i = 1; i <= 10; i++){
+    const col = document.createElement('div');
+    col.classList.add('col_'+i);
+    main.appendChild(col);
+    for (let j = 1; j <= 10; j++){
+        const newDiv = document.createElement('div');
+        col.appendChild(newDiv);
+        newDiv.innerText = i * j;
+        newDiv.classList.add('row_' + j);
+        newDiv.classList.add('cell');
+    };
+};
+
+const cells = document.querySelectorAll('.cell');
+const formulaOut = document.createElement('div');
+main.appendChild(formulaOut);
+formulaOut.classList.add('formula');
+
+cells.forEach((cell) => {
+    cell.addEventListener('mousedown', (e) => {
+        let row = e.target.classList[0];
+        let col = e.target.parentElement.classList[0];
+        console.log();
+        formulaOut.innerText = row.slice(4) +" x "+ col.slice(4) +" = " + e.target.innerText;
+    });
+});
+
+</script>
 </html>

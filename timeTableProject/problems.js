@@ -78,9 +78,10 @@ function main() {
     buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            const problemDiv = e.target.parentElement
+            //returns problem number that was added to class
             const problemNum = e.target.parentElement.classList[1][2]
-            validateProblem(problems[problemNum], problemDiv);
+            //calls validateProblem with parameters - problem answer and problem div
+            validateProblem(problems[problemNum], e.target.parentElement);
         });
     });
 

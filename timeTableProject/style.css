@@ -1,0 +1,102 @@
+body {
+    background-color: #444;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+main {
+    display: grid;
+    grid-template-areas: 
+    "tt tt tt prob prob prob"
+    "formula formula formula formula formula formula";
+    gap: 1rem;
+    width: fit-content;
+}
+
+#timesTable {
+    display: flex;
+    grid-area: tt;
+    width: fit-content;
+}
+
+#timesTable>*:hover {
+    background-color: lightblue;
+    color: #222;
+}
+
+#timesTable:has(.row_1:hover) .row_1,
+#timesTable:has(.row_2:hover) .row_2,
+#timesTable:has(.row_3:hover) .row_3,
+#timesTable:has(.row_4:hover) .row_4,
+#timesTable:has(.row_5:hover) .row_5,
+#timesTable:has(.row_6:hover) .row_6,
+#timesTable:has(.row_7:hover) .row_7,
+#timesTable:has(.row_8:hover) .row_8,
+#timesTable:has(.row_9:hover) .row_9,
+#timesTable:has(.row_10:hover) .row_10 {
+    background-color: greenyellow;
+    color: #222;
+}
+
+#tableFormula,
+#tableFormula:hover {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    padding: clamp(0.75rem, 2vw, 1.25rem);
+    font-weight: 700;
+    grid-area: formula;
+}
+
+.cell {
+    cursor: pointer;
+    padding: clamp(0.75rem, 2vw, 1.25rem);
+    margin: 0.5rem;
+    font-size: clamp(0.75rem, 2vw, 1.25rem);
+    border: 1px dashed #000;
+}
+
+.cell:hover {
+    font-weight: 700;
+    box-shadow: 3px 5px #222;
+
+}
+
+/* multiply problem css */
+
+#problems {
+    grid-area: prob;
+}
+
+.multiply {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 4rem;
+    font-size: 2rem;
+}
+
+.multiply p {
+    margin: 3px;
+}
+
+.multiply input {
+    color: #fff;
+    background-color: #444;
+    border: 1px solid #000;
+    margin: 0;
+    padding: 0.5rem;
+    text-align: right;
+}
+
+.carry {
+    width: 1rem;
+    align-self: flex-start;
+}
+
+.solution {
+    width: 2.5rem;
+}
+
+.defProblem {
+    display: flex;
+}

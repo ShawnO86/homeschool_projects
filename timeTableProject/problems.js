@@ -56,7 +56,9 @@ Mess around with building 2+ digit problems using HTML forms,
 Find way to validate each part (ones, tens, carry overs, etc..)
 */
 function validateProblem(problem) {
-    console.log("[num1, num2, onesAns, tensAns, carry]", problem);
+    //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
+    //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
+    console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problem);
 };
 
 

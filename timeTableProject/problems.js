@@ -28,38 +28,52 @@ function createProblemArr() {
 };
 
 function writeProblemArr(problems) {
-    const problemSection = document.getElementById("problems");
-    const form = document.createElement("form");
-    form.classList.add("multiply");
-    problemSection.appendChild(form);
-    let i = 1
+    const form = document.getElementById("multiply");
+    let i = 0
     problems.forEach(problem => {
         const div = document.createElement("div");
         form.appendChild(div);
         div.innerHTML = `
         <label for="carry">carry</label>
-        <input type="text" class="carry" placeholder=` + problem[5] + `>
+        <input type="text" class="carry">
             <div class="defProblem">
                 <p><br>x</p>
                 <p>`+ problem[0] +`<br>` + problem[1] + `</p>
             </div>
-        <input type="text" class="ones solution" placeholder=`+ problem[2] +`>
-        <input type="text" class="tens solution"placeholder=`+ problem[3] +`>
-        <input type="text" class="final solution" placeholder=` + problem[4] + `>
+        <input type="text" class="ones solution">
+        <input type="text" class="tens solution">
+        <input type="text" class="final solution">
+        <button type="submit" class="submit_btn">Submit</button>
         `;
         div.classList.add("problem", "p_"+i);
         i++
     });
 };
 
+
 /* TO DO:
 Mess around with building 2+ digit problems using HTML forms,
 Find way to validate each part (ones, tens, carry overs, etc..)
 */
-function validateProblems() {
-    const problemSection = document.getElementById("problems");
+function validateProblem(problem) {
+    console.log("[num1, num2, onesAns, tensAns, carry]", problem);
+};
 
-}
 
+function main() {
+    const problems = createProblemArr();
+    writeProblemArr(problems);
 
-writeProblemArr(createProblemArr());
+    //applies validateProblem to each submit button
+    const buttons = document.querySelectorAll(".submit_btn");
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            let problemNum = e.target.parentElement.classList[1][2]
+            validateProblem(problems[problemNum]);
+        });
+    });
+
+};
+
+main();

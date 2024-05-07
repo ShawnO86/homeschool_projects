@@ -16,7 +16,7 @@ function createTimesTable() {
     
     const cells = document.querySelectorAll('.cell');
     const formulaOut = document.getElementById('tableFormula');
-    
+    formulaOut.innerText = "Click times table cell for more detail."
     cells.forEach((cell) => {
         cell.addEventListener('mousedown', (e) => {
             let row = e.target.classList[0];

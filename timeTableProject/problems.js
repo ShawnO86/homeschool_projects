@@ -55,10 +55,17 @@ function writeProblemArr(problems) {
 Mess around with building 2+ digit problems using HTML forms,
 Find way to validate each part (ones, tens, carry overs, etc..)
 */
-function validateProblem(problem) {
+function validateProblem(problemAns, problemDiv) {
     //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
     //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
-    console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problem);
+    console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problemAns);
+
+    const carryInput = problemDiv.querySelector('.carry').value;
+    const onesInput = problemDiv.querySelector('.ones').value;
+    const tensInput = problemDiv.querySelector('.tens').value;
+    const finalInput = problemDiv.querySelector('.final').value;
+    
+    console.log("ones- " + onesInput, "tens- " + tensInput, "final- " + finalInput, "carry- " + carryInput)
 };
 
 
@@ -71,8 +78,9 @@ function main() {
     buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            let problemNum = e.target.parentElement.classList[1][2]
-            validateProblem(problems[problemNum]);
+            const problemDiv = e.target.parentElement
+            const problemNum = e.target.parentElement.classList[1][2]
+            validateProblem(problems[problemNum], problemDiv);
         });
     });
 

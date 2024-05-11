@@ -112,3 +112,11 @@ main {
 .defProblem {
     display: flex;
 }
+
+#multiply .wrong {
+    border: 1px solid red;
+}
+
+#multiply .correct {
+    border: 1px solid greenyellow;
+}

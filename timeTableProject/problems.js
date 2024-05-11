@@ -44,6 +44,7 @@ export function writeProblemArr(problems) {
         <input type="text" class="tens solution">
         <input type="text" class="final solution">
         <button type="submit" class="submit_btn">Submit</button>
+        <p class="validation"></p>
         `;
         div.classList.add("problem", "p_"+i);
         i++
@@ -54,16 +55,41 @@ export function writeProblemArr(problems) {
 /* TO DO:
 Mess around with building 2+ digit problems using HTML forms,
 Find way to validate each part (ones, tens, carry overs, etc..)
+
+Should validate each step seperatly, then clear the carry for the one's step.
 */
 export function validateProblem(problemAns, problemDiv) {
     //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
     //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
     console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problemAns);
+    const validOutput = problemDiv.querySelector('.validation');
+    const carryInput = problemDiv.querySelector('.carry');
+    const onesInput = problemDiv.querySelector('.ones');
+    const tensInput = problemDiv.querySelector('.tens');
+    const finalInput = problemDiv.querySelector('.final');
 
-    const carryInput = problemDiv.querySelector('.carry').value;
-    const onesInput = problemDiv.querySelector('.ones').value;
-    const tensInput = problemDiv.querySelector('.tens').value;
-    const finalInput = problemDiv.querySelector('.final').value;
+    if (carryInput.value == problemAns[5]) {
+        carryInput.classList.add('correct');
+    } else {
+        carryInput.classList.add('wrong');
+    }
+    if (onesInput.value == problemAns[2]) {
+        onesInput.classList.add('correct');
+    } else {
+        onesInput.classList.add('wrong');
+    }
+    if (tensInput.value == problemAns[3]) {
+        tensInput.classList.add('correct');
+    } else {
+        tensInput.classList.add('wrong');
+    }
+    if (finalInput.value == problemAns[4]) {
+        finalInput.classList.add('correct');
+    } else {
+        finalInput.classList.add('wrong');
+    }
+    
+
     
     console.log("ones- " + onesInput, "tens- " + tensInput, "final- " + finalInput, "carry- " + carryInput)
 };

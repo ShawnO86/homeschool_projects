@@ -8,13 +8,15 @@ body {
 main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     gap: 1rem;
-    width: 100%;
+    margin: clamp(0.5rem, 2vw, 3rem) auto;
+    max-width: 1440px;
 }
 
 #timesTable {
     display: flex;
+    justify-content: center;
     height: fit-content;
 }
 
@@ -39,10 +41,11 @@ main {
 
 #tableFormula,
 #tableFormula:hover {
-    font-size: 2rem;
-    padding: 1rem;
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+    padding: 0 1rem;
     font-weight: 700;
     flex: 100%;
+    text-align: center;
 }
 
 .cell {
@@ -72,7 +75,7 @@ main {
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: space-around;
-    font-size: 2rem;
+    font-size: clamp(1.25rem, 2vw, 2rem);
 }
 
 #multiply p {

@@ -1,4 +1,4 @@
-function createTimesTable() {
+export function createTimesTable() {
     const tableSection = document.getElementById('timesTable');
     for (let i = 1; i <= 10; i++){
         const col = document.createElement('div');
@@ -16,14 +16,12 @@ function createTimesTable() {
     
     const cells = document.querySelectorAll('.cell');
     const formulaOut = document.getElementById('tableFormula');
-    formulaOut.innerText = "Click times table cell for more detail."
+    formulaOut.innerHTML = "<p>Click times table cell for more detail.</p>"
     cells.forEach((cell) => {
         cell.addEventListener('mousedown', (e) => {
             let row = e.target.classList[0];
             let col = e.target.parentElement.classList[0];
-            formulaOut.innerText = row.slice(4) +" x "+ col.slice(4) +" = " + e.target.innerText;
+            formulaOut.innerHTML ="<p>" + row.slice(4) +" x "+ col.slice(4) +" = " + e.target.innerText + "</p>";
         });
     });
 };
-
-createTimesTable();

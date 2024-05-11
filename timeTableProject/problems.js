@@ -19,7 +19,7 @@ function createProblem() {
     return [num1, num2, onesAnswer, tensAnswer, finalAnswer, onesCarry];
 };
 
-function createProblemArr() {
+export function createProblemArr() {
     let problems = [];
     for(let i = 0; i < 10; i++) {
         problems.push(createProblem());
@@ -27,7 +27,7 @@ function createProblemArr() {
     return problems;
 };
 
-function writeProblemArr(problems) {
+export function writeProblemArr(problems) {
     const form = document.getElementById("multiply");
     let i = 0
     problems.forEach(problem => {
@@ -55,7 +55,7 @@ function writeProblemArr(problems) {
 Mess around with building 2+ digit problems using HTML forms,
 Find way to validate each part (ones, tens, carry overs, etc..)
 */
-function validateProblem(problemAns, problemDiv) {
+export function validateProblem(problemAns, problemDiv) {
     //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
     //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
     console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problemAns);
@@ -68,23 +68,3 @@ function validateProblem(problemAns, problemDiv) {
     console.log("ones- " + onesInput, "tens- " + tensInput, "final- " + finalInput, "carry- " + carryInput)
 };
 
-
-function main() {
-    const problems = createProblemArr();
-    writeProblemArr(problems);
-
-    //applies validateProblem to each submit button
-    const buttons = document.querySelectorAll(".submit_btn");
-    buttons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            //returns problem number that was added to class
-            const problemNum = e.target.parentElement.classList[1][2]
-            //calls validateProblem with parameters - problem answer and problem div
-            validateProblem(problems[problemNum], e.target.parentElement);
-        });
-    });
-
-};
-
-main();

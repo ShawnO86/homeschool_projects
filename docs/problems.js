@@ -1,31 +1,31 @@
-
-function createProblem() {
-    //generate two random numbers between 10 and 99
-    const num1 = Math.floor(Math.random() * 90 + 10);
-    const num2 = Math.floor(Math.random() * 90 + 10);
-
-    //multiplies num1 by ones digit of num2
-    const onesAnswer = num1 * (num2 % 10);
-    //calculates carry over value -- (num1 % 10) * (num2 % 10) selects the ones place digits and multiplies them,
-    //dividing that product by 10 moves decimal to the tens place, Math.floor() ensures it's an integer by removing everything after decimal.
-    const onesCarry = Math.floor((((num1 % 10) * (num2 % 10)) / 10));
-
-    //multiplies num1 by tens digit of num2 and mulitplies result by 10 
-    const tensAnswer = (num1 * Math.floor(num2 / 10)) * 10;
-
-    //sums onesAnswers and tensAnswers
-    const finalAnswer = onesAnswer + tensAnswer;
-
-    return [num1, num2, onesAnswer, tensAnswer, finalAnswer, onesCarry];
+class Problem {
+    constructor() {
+        //generate two random numbers between 10 and 99
+        this.num1 = Math.floor(Math.random() * 90 + 10);
+        this.num2 = Math.floor(Math.random() * 90 + 10);
+        //multiplies num1 by ones digit of num2
+        this.onesAnswer = this.num1 * (this.num2 % 10);
+        //calculates carry over value -- (num1 % 10) * (num2 % 10) selects the ones place digits and multiplies them,
+        //dividing that product by 10 moves decimal to the tens place, Math.floor() ensures it's an integer by removing everything after decimal.
+        this.onesCarry = Math.floor((((this.num1 % 10) * (this.num2 % 10)) / 10));
+        this.tensCarry = Math.floor((this.num2 / 10) * (this.num1 % 10) / 10);
+        //multiplies num1 by tens digit of num2 and mulitplies result by 10 
+        this.tensAnswer = (this.num1 * Math.floor(this.num2 / 10)) * 10;
+        this.finalAnswer = this.onesAnswer + this.tensAnswer;
+    };
 };
+
 
 export function createProblemArr() {
     let problems = [];
-    for(let i = 0; i < 10; i++) {
-        problems.push(createProblem());
+
+    for(let i = 0; i < 4; i++) {
+        problems.push(new Problem());
     };
+
     return problems;
 };
+
 
 export function writeProblemArr(problems) {
     const form = document.getElementById("multiply");
@@ -34,17 +34,21 @@ export function writeProblemArr(problems) {
         const div = document.createElement("div");
         form.appendChild(div);
         div.innerHTML = `
-        <label for="carry">carry</label>
-        <input type="text" class="carry">
+        <label for="carry">carry overs:</label>
+        <label for="tensCarry">tens</label>
+        <input type="text" class="tensCarry carry">
+        <label for="onesCarry">ones</label>
+        <input type="text" class="onesCarry carry">
             <div class="defProblem">
                 <p><br>x</p>
-                <p>`+ problem[0] +`<br>` + problem[1] + `</p>
+                <p>`+ problem.num1 +`<br>` + problem.num2 + `</p>
             </div>
         <input type="text" class="ones solution">
+        <p class="operator">+</p>
         <input type="text" class="tens solution">
+        <p class="operator">=</p>
         <input type="text" class="final solution">
         <button type="submit" class="submit_btn">Submit</button>
-        <p class="validation"></p>
         `;
         div.classList.add("problem", "p_"+i);
         i++
@@ -61,36 +65,40 @@ Should validate each step seperatly, then clear the carry for the one's step.
 export function validateProblem(problemAns, problemDiv) {
     //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
     //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
-    console.log("[num1, num2, onesAns, tensAns, finalAns, carry]", problemAns);
-    const validOutput = problemDiv.querySelector('.validation');
-    const carryInput = problemDiv.querySelector('.carry');
+    const onesCarryInput = problemDiv.querySelector('.onesCarry');
+    const tensCarryInput = problemDiv.querySelector('.tensCarry');
     const onesInput = problemDiv.querySelector('.ones');
     const tensInput = problemDiv.querySelector('.tens');
     const finalInput = problemDiv.querySelector('.final');
+    const toInt = (val) => Number.parseInt(val);
 
-    if (carryInput.value == problemAns[5]) {
-        carryInput.classList.add('correct');
+    if (onesCarryInput.value == problemAns.onesCarry) {
+        onesCarryInput.classList.add('correct');
     } else {
-        carryInput.classList.add('wrong');
-    }
-    if (onesInput.value == problemAns[2]) {
+        onesCarryInput.classList.add('wrong');
+    };
+    if (tensCarryInput.value == problemAns.tensCarry) {
+        tensCarryInput.classList.add('correct');
+    } else {
+        tensCarryInput.classList.add('wrong');
+    };
+    if (toInt(onesInput.value) === problemAns.onesAnswer) {
         onesInput.classList.add('correct');
     } else {
         onesInput.classList.add('wrong');
-    }
-    if (tensInput.value == problemAns[3]) {
+    };
+    if (toInt(tensInput.value) === problemAns.tensAnswer) {
         tensInput.classList.add('correct');
     } else {
         tensInput.classList.add('wrong');
-    }
-    if (finalInput.value == problemAns[4]) {
+    };
+    if (toInt(finalInput.value) === problemAns.finalAnswer) {
         finalInput.classList.add('correct');
     } else {
         finalInput.classList.add('wrong');
-    }
-    
+    };
 
-    
-    console.log("ones- " + onesInput, "tens- " + tensInput, "final- " + finalInput, "carry- " + carryInput)
+    console.log("ones- " + problemAns.onesAnswer, "tens- " + problemAns.tensAnswer, "final- " + problemAns.finalAnswer, "ones carry- " +  problemAns.onesCarry, "tens carry- " + problemAns.tensCarry)
+    console.log("ones- " + onesInput.value, "tens- " + tensInput.value, "final- " + finalInput.value, "ones carry- " + onesCarryInput.value, "tens carry-" + tensCarryInput.value)
 };
 

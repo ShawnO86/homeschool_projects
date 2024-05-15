@@ -1,6 +1,7 @@
 class Problem {
     constructor() {
         //generate two random numbers between 10 and 99
+        //highest possible problem - 99 * 99 
         this.num1 = Math.floor(Math.random() * 90 + 10);
         this.num2 = Math.floor(Math.random() * 90 + 10);
         //multiplies num1 by ones digit of num2
@@ -12,7 +13,20 @@ class Problem {
         //multiplies num1 by tens digit of num2 and mulitplies result by 10 
         this.tensAnswer = (this.num1 * Math.floor(this.num2 / 10)) * 10;
         this.finalAnswer = this.onesAnswer + this.tensAnswer;
+        //steps are - multiplication (M)-: ones, tens - addition (A)-: ones, tens, hundreds, thousands if needed 
+        this.step = "M-ones";
     };
+
+    write() {
+        //Make problem generate as it's solved? 
+        //Start with whole problem, but only allow ones digit step and ones carry for step one,
+        //Then, allow tens digit, starts with a 0
+        //Next, addition step - have carry overs for addition. 
+    };
+
+    validate(step) {
+
+    }
 };
 
 

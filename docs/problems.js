@@ -15,7 +15,6 @@
     and others
     */
 
-
 class Problem {
     constructor() {
         //generate two random numbers between 10 and 99
@@ -30,41 +29,52 @@ class Problem {
         this.tensCarry = Math.floor((this.num2 / 10) * (this.num1 % 10) / 10);
     };
 
-    write(index, step) {
+    write() {
         //Make problem generate as it's solved? 
         //Start with whole problem, but only allow ones digit step and ones carry for step one,
         //Then, allow tens digit, starts with a 0
         //Next, addition step - have carry overs for addition.
+        const num1Ones = this.num1 % 10;
+        const num1Tens = Math.floor(this.num1 / 10);
+        const num2Ones = this.num2 % 10;
+        const num2Tens = Math.floor(this.num2 / 10);
+
+        console.log("num1:", this.num1, "num2:", this.num2);
+        console.log("num2 Tens", num1Tens, "num1 Ones:", num1Ones);
+
+        //initial problem with ones step
         return `
-        <div class="problem p_${index}">
-        <label for="carry">carry overs:</label>
-        <label for="tensCarry">tens</label>
-        <input type="text" class="tensCarry carry">
-        <label for="onesCarry">ones</label>
-        <input type="text" class="onesCarry carry">
-            <div class="defProblem">
-                <p><br>x</p>
-                <p>${this.num1}<br>${this.num2}</p>
-            </div>
-        <input type="text" class="ones solution">
-        <p class="operator">+</p>
-        <input type="text" class="tens solution">
-        <p class="operator">=</p>
-        <input type="text" class="final solution">
-        <button type="submit" class="submit_btn">Submit</button>
-        </div>
+            <tr>
+                <td colspan="3" class=carryCell>
+                    <input type="text" class="carry">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>${num1Tens}</td>
+                <td>${num1Ones}</td>
+            </tr>
+            <tr>
+                <td>x</td>
+                <td>${num2Tens}</td>
+                <td>${num2Ones}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2"><input type="text" class="onesInput"></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button class="submitBtn">Check Answer</button>
+                </td>
         `
     };
-
-    validate(userInput) {
-        //Should I use a method or what im doing now?
-    }
 };
 
 
 export function createProblemArr() {
     const problems = [];
-    for(let i = 0; i < 4; i++) {
+    for(let i = 0; i < 3; i++) {
         problems.push(new Problem());
     };
     return problems;
@@ -74,22 +84,26 @@ export function createProblemArr() {
 export function writeProblemArr(problems) {
     const form = document.getElementById("multiply");
     problems.forEach((problem, index) => {
-        form.innerHTML += problem.write(index);
+        const table = document.createElement("table");
+        table.classList.add("problem", "p_"+index);
+        table.innerHTML = problem.write();
+        form.appendChild(table)
     });
 };
 
 
-export function validateProblem(problemAns, problemDiv) {
+export function validateProblem(problemAns, problemEl) {
     //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
     //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
-    const onesCarryInput = problemDiv.querySelector('.onesCarry');
-    const tensCarryInput = problemDiv.querySelector('.tensCarry');
-    const onesInput = problemDiv.querySelector('.ones');
-    const tensInput = problemDiv.querySelector('.tens');
-    const finalInput = problemDiv.querySelector('.final');
+    const onesCarryInput = problemEl.querySelector('.carry');
+    const tensCarryInput = problemEl.querySelector('.tensCarry');
+    const onesInput = problemEl.querySelector('.ones');
+    const tensInput = problemEl.querySelector('.tens');
+    const finalInput = problemEl.querySelector('.final');
     const toInt = (val) => Number.parseInt(val);
+    console.log(problemEl)
 
-    if (onesCarryInput.value == problemAns.onesCarry) {
+/*     if (onesCarryInput.value == problemAns.onesCarry) {
         onesCarryInput.classList.add('correct');
     } else {
         onesCarryInput.classList.add('wrong');
@@ -113,9 +127,9 @@ export function validateProblem(problemAns, problemDiv) {
         finalInput.classList.add('correct');
     } else {
         finalInput.classList.add('wrong');
-    };
+    }; */
 
     console.log("ones- " + problemAns.onesAnswer, "tens- " + problemAns.tensAnswer, "final- " + problemAns.finalAnswer, "ones carry- " +  problemAns.onesCarry, "tens carry- " + problemAns.tensCarry)
-    console.log("ones- " + onesInput.value, "tens- " + tensInput.value, "final- " + finalInput.value, "ones carry- " + onesCarryInput.value, "tens carry-" + tensCarryInput.value)
+    //console.log("ones- " + onesInput.value, "tens- " + tensInput.value, "final- " + finalInput.value, "ones carry- " + onesCarryInput.value, "tens carry-" + tensCarryInput.value)
 };
 

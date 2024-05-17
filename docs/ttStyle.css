@@ -62,77 +62,26 @@ main {
     box-shadow: 2px 4px #222;
 }
 
-/* multiply problem css */
+/*problem generation styles*/
 
-#problems {
-    flex: 2;
-    max-width: 600px;
-    min-width: 200px; 
-    margin: clamp(0.25rem, 1vw, 0.5rem);
+.problem input {
+    width: 2rem;
 }
 
-#multiply {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-around;
-    font-size: clamp(1.25rem, 2vw, 2rem);
+table {
+    border: 1px solid black;
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
 }
 
-#multiply p {
-    margin: 3px;
+td {
+    border: 1px solid black;
 }
 
-#multiply input {
-    color: #fff;
-    background-color: #444;
-    border: 1px solid #000;
+.problem .carry {
+    width: 0.75rem;
     margin: 0;
-    padding: 0.5rem;
-    text-align: right;
 }
 
-.problem {
-    display: flex;
-    flex-direction: column;
-}
-
-.problem label {
-    font-size: 0.75rem;
-}
-
-.carry {
-    width: 1rem;
-    align-self: flex-start;
-}
-
-.solution {
-    width: clamp(2.25rem, 5vw, 3rem);
-}
-
-.defProblem {
-    display: flex;
-    justify-content: right;
-}
-
-#multiply .wrong {
-    border: 1px solid red;
-}
-
-#multiply .correct {
-    border: 1px solid greenyellow;
-}
-
-.submit_btn {
-    background-color: lightblue;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.submit_btn:hover {
-    border: 1px solid greenyellow;
-}
-
-.operator {
-    font-size: clamp(.75rem, 2vw, 1.25rem);
+.submitBtn {
+    width: 4rem;
 }

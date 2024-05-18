@@ -5,17 +5,28 @@ function main() {
     createTimesTable();
 
     const problems = createProblemArr();
+    const form = document.querySelector("#multiply");
 
-    problems[0].write()
-
-    //applies validateProblem to each submit button
-    const buttons = document.querySelectorAll(".submitBtn");
-    buttons.forEach((button, index) => {
-        button.addEventListener("click", (e) => {
+    problems.forEach((problem, index) => {
+        const submitBtn = document.createElement("button");
+        const problemContainer = document.createElement("div");
+        submitBtn.classList.add("submitBtn");
+        submitBtn.innerText = "Check Answer";
+        problemContainer.appendChild(problem.table)
+        form.appendChild(problemContainer)
+        problem.write();
+        problem.table.classList.add("p_"+index);
+        problemContainer.appendChild(submitBtn);
+        submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            const problem = document.querySelector(".problem");
-            problems[index].validate(problem);
-        });
+            problem.validate(problem.table);
+            if (problem.validated) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Complete!"
+                submitBtn.classList.add("correct");
+                problemContainer.classList.add("shrink")
+            }
+        })
     });
 };
 

@@ -1,18 +1,20 @@
 import { createTimesTable } from "./timesTable.js";
-import { createProblemArr, writeProblemArr, validateProblem } from "./problems.js";
+import { createProblemArr } from "./problems.js";
 
 function main() {
     createTimesTable();
+
     const problems = createProblemArr();
-    writeProblemArr(problems);
+
+    problems[0].write()
 
     //applies validateProblem to each submit button
     const buttons = document.querySelectorAll(".submitBtn");
     buttons.forEach((button, index) => {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            const problem = document.querySelector(".p_"+index);
-            problems[index].validate(problem)
+            const problem = document.querySelector(".problem");
+            problems[index].validate(problem);
         });
     });
 };

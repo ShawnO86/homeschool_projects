@@ -9,7 +9,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(0.25rem, 1.25vw, 1rem);
+    gap: 2rem 3rem;
     padding: clamp(0.25rem, 1.25vw, 1rem);
     margin: auto;
     max-width: 1440px;
@@ -64,14 +64,14 @@ main {
 
 /*problem generation styles*/
 
-.problem input {
-    width: 2.5rem;
-}
+
 
 table {
     border: 1px solid black;
     font-size: clamp(1.5rem, 2vw, 2.5rem);
     text-align: right;
+    margin: auto;
+
 }
 
 td {
@@ -85,6 +85,11 @@ td sub {
 .problem .carry {
     width: 1.25rem;
     margin: 0;
+}
+
+.problem input {
+    width: 2.5rem;
+    text-align: right;
 }
 
 .correct {

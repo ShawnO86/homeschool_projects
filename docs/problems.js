@@ -33,13 +33,9 @@ class Problem {
         const num1Tens = Math.floor(this.num1 / 10);
         const num2Ones = this.num2 % 10;
         const num2Tens = Math.floor(this.num2 / 10);
+        const table = document.getElementById("multTable");
 
-        console.log("num1:", this.num1, "num2:", this.num2);
-        console.log("num2 Tens", num1Tens, "num1 Ones:", num1Ones);
-
-        //TO DO: set up way to write problem as it gets verified.
-
-        return `
+        const onesHTML = `
             <tr>
                 <td><sub>carry</sub></td>
                 <td class=carryCell>
@@ -57,53 +53,66 @@ class Problem {
                 <td>${num2Ones}</td>
             </tr>
             <tr>
-                <td></td>
+                <td><sub>ones</sub></td>
                 <td colspan="2"><input type="text" class="onesInput"></td>
-            </tr>
+            </tr>`;
+
+        const tensHTML = `
             <tr>
-                <td><sub>+</sub></td>
+                <td><sub>+tens</sub></td>
                 <td colspan="2"><input type="text" class="tensInput"></td>
-            </tr>
+                </tr>
+            <tr>`;
+
+        const finalHTML = `
             <tr>
-            <td><sub>=</sub></td>
+                <td><sub>=</sub></td>
                 <td colspan="2"><input type="text" class="finalInput"></td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <button class="submitBtn">Check Answers</button>
-                </td>
-        `;
+            </tr>`;
+
+        if (this.currStep == 'ones') {
+            table.innerHTML = onesHTML;
+        } else if (this.currStep == 'tens') {
+            table.innerHTML += tensHTML;
+            table.querySelector(".onesInput").parentElement.innerHTML = this.onesAnswer;
+        } else if (this.currStep == 'final') {
+            table.innerHTML += finalHTML;
+            table.querySelector(".tensInput").parentElement.innerHTML = this.tensAnswer;
+        };
+       
+
+
     };
 
     validate(problemEl) {
-        console.log("validate method");
+        console.log(problemEl)
         const onesInput = problemEl.querySelector('.onesInput');
         const tensInput = problemEl.querySelector('.tensInput');
         const finalInput = problemEl.querySelector('.finalInput');
         const toInt = (val) => Number.parseInt(val);
-        console.log(this.onesAnswer, this.tensAnswer, this.finalAnswer)
-        switch (this.currStep) {
-            case 'ones':
-                console.log(onesInput.value)
-                if (toInt(onesInput.value) === this.onesAnswer) {
-                    onesInput.classList.remove('wrong');
-                    onesInput.classList.add('correct');
-                    this.currStep = 'tens';
-                } else {
-                    onesInput.classList.add('wrong');
-                };
-            case 'tens':
+        console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
+        if (this.currStep == 'ones') {
+            if (toInt(onesInput.value) === this.onesAnswer) {
+                onesInput.classList.remove('wrong');
+                this.currStep = 'tens';
+                this.write();
+            } else {
+                onesInput.classList.add('wrong');
+            }
+        }   else if (this.currStep == 'tens') {
+                console.log('moved to tens')
+
                 if (toInt(tensInput.value) === this.tensAnswer) {
                     tensInput.classList.remove('wrong');
-                    tensInput.classList.add('correct');
-                    this.currStep = 'final'
+                    this.currStep = 'final';
+                    this.write();
                 } else {
                     tensInput.classList.add('wrong');
                 };
-            case 'final':
+        }   else if (this.currStep == 'final') {
                 if (toInt(finalInput.value) === this.finalAnswer) {
                     finalInput.classList.remove('wrong');
-                    finalInput.classList.add('correct');
+                    problemEl.querySelector(".finalInput").parentElement.innerHTML = this.finalAnswer;
                 } else {
                     finalInput.classList.add('wrong');
                 };
@@ -120,56 +129,3 @@ export function createProblemArr() {
     };
     return problems;
 };
-
-
-export function writeProblemArr(problems) {
-    const form = document.getElementById("multiply");
-    problems.forEach((problem, index) => {
-        const table = document.createElement("table");
-        table.classList.add("problem", "p_" + index);
-        table.innerHTML = problem.write();
-        form.appendChild(table)
-    });
-};
-
-
-export function validateProblem(problemAns, problemEl) {
-    //problem is an array of integers given by clicking submit and getting the target parent class to specify index of problems array,
-    //problem array structure = [num1, num2, onesAns, tensAns, finalAns, carry]
-    const onesCarryInput = problemEl.querySelector('.carry');
-    const tensCarryInput = problemEl.querySelector('.tensCarry');
-    const onesInput = problemEl.querySelector('.ones');
-    const tensInput = problemEl.querySelector('.tens');
-    const finalInput = problemEl.querySelector('.final');
-    const toInt = (val) => Number.parseInt(val);
-
-    /*     if (onesCarryInput.value == problemAns.onesCarry) {
-            onesCarryInput.classList.add('correct');
-        } else {
-            onesCarryInput.classList.add('wrong');
-        };
-        if (tensCarryInput.value == problemAns.tensCarry) {
-            tensCarryInput.classList.add('correct');
-        } else {
-            tensCarryInput.classList.add('wrong');
-        };
-        if (toInt(onesInput.value) === problemAns.onesAnswer) {
-            onesInput.classList.add('correct');
-        } else {
-            onesInput.classList.add('wrong');
-        };
-        if (toInt(tensInput.value) === problemAns.tensAnswer) {
-            tensInput.classList.add('correct');
-        } else {
-            tensInput.classList.add('wrong');
-        };
-        if (toInt(finalInput.value) === problemAns.finalAnswer) {
-            finalInput.classList.add('correct');
-        } else {
-            finalInput.classList.add('wrong');
-        }; */
-
-    console.log("ones- " + problemAns.onesAnswer, "tens- " + problemAns.tensAnswer, "final- " + problemAns.finalAnswer, "ones carry- " + problemAns.onesCarry, "tens carry- " + problemAns.tensCarry)
-    //console.log("ones- " + onesInput.value, "tens- " + tensInput.value, "final- " + finalInput.value, "ones carry- " + onesCarryInput.value, "tens carry-" + tensCarryInput.value)
-};
-

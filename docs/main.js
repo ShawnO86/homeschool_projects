@@ -11,8 +11,8 @@ function main() {
     buttons.forEach((button, index) => {
         button.addEventListener("click", (e) => {
             e.preventDefault();
-            const problem = document.querySelector(".p_"+index)
-            validateProblem(problems[index], problem);
+            const problem = document.querySelector(".p_"+index);
+            problems[index].validate(problem)
         });
     });
 };

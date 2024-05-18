@@ -65,23 +65,32 @@ main {
 /*problem generation styles*/
 
 .problem input {
-    width: 2rem;
+    width: 2.5rem;
 }
 
 table {
     border: 1px solid black;
     font-size: clamp(1.5rem, 2vw, 2.5rem);
+    text-align: right;
 }
 
 td {
     border: 1px solid black;
 }
 
+td sub {
+    font-size: 0.75rem;
+}
+
 .problem .carry {
-    width: 0.75rem;
+    width: 1.25rem;
     margin: 0;
 }
 
-.submitBtn {
-    width: 4rem;
+.correct {
+    border: 2px solid greenyellow;
+}
+
+.wrong {
+    border: 2px solid red;
 }

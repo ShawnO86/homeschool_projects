@@ -1,9 +1,8 @@
 
-//TO DO: seperate input cells.
-
 /* TO DO:
-REPLICATE https://mrnussbaum.com/multiplication-pal-online-multiplication-simulation
-and others?
+Highlight cell for each respective step?
+Fix tab indexing of inputs?
+
 */
 
 class Problem {

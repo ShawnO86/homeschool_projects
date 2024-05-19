@@ -1,6 +1,8 @@
+
+
 /* TO DO:
-Highlight cell for each respective step?
-Fix tab indexing of inputs?
+    Highlight table cell for each respective step?
+    Fix tab indexing of inputs?
 */
 
 export class Problem {
@@ -108,16 +110,16 @@ export class Problem {
             <tr>
                 <td>=</td>
                 <td>
-                <input type="text" id="add_thousands" class="addInput">
+                <input type="text" class="addInput">
                 </td>
                 <td>
-                <input type="text" id="add_hundreds" class="addInput">
+                <input type="text" class="addInput">
                 </td>
                 <td>
-                <input type="text" id="add_tens" class="addInput">
+                <input type="text" class="addInput">
                 </td>
                 <td>
-                <input type="text" id="add_ones" class="addInput">
+                <input type="text" class="addInput">
                 </td>
             </tr>
             `;
@@ -166,7 +168,7 @@ export class Problem {
 
         } else if (this.currStep == 'addition') {
             const finalVal = parseInputValues(addInput);
-            
+
             if (finalVal === this.finalAnswer) {
                 setNodesRight(addInput);
                 this.validated = true;

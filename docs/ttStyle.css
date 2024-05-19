@@ -131,6 +131,7 @@ td sub {
 }
 
 .correct {
+    background-color: #222;
     border: 2px solid greenyellow;
     color: greenyellow;
 }

@@ -9,7 +9,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem 3rem;
+    gap: 2rem 4rem;
     padding: clamp(0.25rem, 1.25vw, 1rem);
     margin: auto;
     max-width: 1440px;
@@ -65,8 +65,10 @@ main {
 
 #multiply {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
     align-items: center;
+    justify-content: center;
 }
 
 #multiply div {
@@ -100,25 +102,24 @@ td {
     border-radius: 0.25rem;
     border: 1px solid black;
     min-width: 1.25rem;
-    cursor:default;
+    cursor: default;
 }
 
 td sub {
     font-size: 0.75rem;
 }
 
-.problem .carry {
+.addCarry,
+.multCarry,
+.addInput,
+.multInput {
     width: 1rem;
     margin: 0;
-}
-
-.problem input {
-    width: 2.5rem;
+    padding: 0.25rem;
+    height: 1.25rem;
     text-align: right;
-}
-
-.problem .finalInput {
-    width: 6rem;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .correct {
@@ -130,20 +131,29 @@ td sub {
     border: 2px solid red;
 }
 
-.spacer {
-    width: 1rem;
+.completedOut {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, .5);
+    padding: 2rem;
+    margin: -2rem;
+    bottom: 25%;
 }
 
 .shrink {
-    animation: shrink 400ms linear forwards;
+    opacity: 100%;
+    transform: scale(100%);
+    animation: shrink 1s ease-in 2s forwards;
 }
 
 @keyframes shrink {
     from {
+        opacity: 100%;
         transform: scale(100%);
     }
 
     to {
-        transform: scale(60%);
+        opacity: 50%;
+        transform: scale(75%);
     }
 }

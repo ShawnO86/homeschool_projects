@@ -39,54 +39,58 @@ class Problem {
 
         const onesHTML = `
             <tr>
-                <td><sub>carry</sub></td>
+                <td colspan="3"><sub>carry</sub></td>
                 <td class=carryCell>
-                    <input type="text" class="carry">
+                    <input type="text" class="multCarry">
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td colspan="3"></td>
                 <td>${num1Tens}</td>
                 <td>${num1Ones}</td>
             </tr>
             <tr>
-                <td>x</td>
+                <td colspan="3">x</td>
                 <td>${num2Tens}</td>
                 <td>${num2Ones}</td>
             </tr>
-            <tr>
-                <td></td>
-                <td colspan="3" class="onesOutput"><input type="text" class="onesInput"></td>
+            <tr class="onesOutput">
+                <td colspan="2"></td>
+                <td><input type="text" class="multInput onesInput"></td>
+                <td><input type="text" class="multInput onesInput"></td>
+                <td><input type="text" class="multInput onesInput"></td>
             </tr>`;
 
         const tensHTML = `
             <tr>
                 <td>+</td>
-                <td colspan="3" class="tensOutput"><input type="text" class="tensInput"></td>
-                </tr>
+                <td><input type="text" class="multInput tensInput"></td>
+                <td><input type="text" class="multInput tensInput"></td>
+                <td><input type="text" class="multInput tensInput"></td>
+                <td><input type="text" class="multInput tensInput"></td>
             <tr>`;
 
         const finalHTML = `
-            <tr class="shrink">
-                <td></td>
+            <tr>
+                <td colspan="3"></td>
                 <td>${num1Tens}</td>
                 <td>${num1Ones}</td>
             </tr>
-            <tr class="shrink">
-                <td>x</td>
+            <tr>
+                <td colspan="3">x</td>
                 <td>${num2Tens}</td>
                 <td>${num2Ones}</td>
             </tr>
             <tr>
                 <td></td>
                 <td class=carryCell>
-                <input type="text" class="carry">
+                <input type="text" class="addCarry">
                 </td>
                 <td class=carryCell>
-                <input type="text" class="carry">
+                <input type="text" class="addCarry">
                 </td>
                 <td class=carryCell>
-                <input type="text" class="carry">
+                <input type="text" class="addCarry">
                 </td>
                 <td class="spacer"></td>
             </tr>
@@ -104,8 +108,19 @@ class Problem {
                 <td>${tensAnswerOnes}</td>
             </tr>
             <tr>
-                <td><sub>=</sub></td>
-                <td colspan="5" class="finalOutput"><input type="text" class="finalInput"></td>
+                <td>=</td>
+                <td>
+                <input type="text" id="add_thousands" class="addInput">
+                </td>
+                <td>
+                <input type="text" id="add_hundreds" class="addInput">
+                </td>
+                <td>
+                <input type="text" id="add_tens" class="addInput">
+                </td>
+                <td>
+                <input type="text" id="add_ones" class="addInput">
+                </td>
             </tr>
             `;
 
@@ -113,53 +128,97 @@ class Problem {
             this.table.innerHTML = onesHTML;
         } else if (this.currStep == 'tens') {
             this.table.innerHTML = onesHTML + tensHTML;
-            this.table.querySelector(".onesOutput").innerHTML = this.onesAnswer;
-        } else if (this.currStep == 'final') {
+            this.table.querySelector(".onesOutput").innerHTML = `
+            <td colspan="2"></td>
+            <td>${onesAnswerHundreds}</td>
+            <td>${onesAnswerTens}</td>
+            <td>${onesAnswerOnes}</td>`;
+        } else if (this.currStep == 'addition') {
             this.table.innerHTML = finalHTML;
         };
     };
 
     validate(problemEl) {
-        const onesInput = problemEl.querySelector('.onesInput');
-        const tensInput = problemEl.querySelector('.tensInput');
-        const finalInput = problemEl.querySelector('.finalInput');
-        const toInt = (val) => Number.parseInt(val);
+        const onesInput = problemEl.querySelectorAll('.onesInput');
+        const tensInput = problemEl.querySelectorAll('.tensInput');
+        const addInput = problemEl.querySelectorAll('.addInput');
         console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
+
         if (this.currStep == 'ones') {
-            if (toInt(onesInput.value) === this.onesAnswer) {
-                onesInput.classList.remove('wrong');
+            let onesVal = parseInputValues(onesInput);
+
+            if (onesVal === this.onesAnswer) {
+                setNodesRight(onesInput);
                 this.currStep = 'tens';
                 this.write();
             } else {
-                onesInput.classList.add('wrong');
-            }
+                setNodesWrong(onesInput);
+            };
+
         } else if (this.currStep == 'tens') {
-            if (toInt(tensInput.value) === this.tensAnswer) {
-                tensInput.classList.remove('wrong');
-                this.currStep = 'final';
+            const tensVal = parseInputValues(tensInput);
+
+            if (tensVal === this.tensAnswer) {
+                setNodesRight(tensInput);
+                this.currStep = 'addition';
                 this.write();
             } else {
-                tensInput.classList.add('wrong');
+                setNodesWrong(tensInput);
             };
-        } else if (this.currStep == 'final') {
-            if (toInt(finalInput.value) === this.finalAnswer) {
-                const finalOutput = problemEl.querySelector(".finalOutput");
-                finalInput.classList.remove('wrong');
-                finalOutput.innerHTML = this.finalAnswer;
-                finalOutput.classList.add('correct');
+
+        } else if (this.currStep == 'addition') {
+            const finalVal = parseInputValues(addInput);
+            
+            if (finalVal === this.finalAnswer) {
+                setNodesRight(addInput);
                 this.validated = true;
             } else {
-                finalInput.classList.add('wrong');
+                setNodesWrong(addInput);
             };
         };
     };
+
 };
 
 
 export function createProblemArr() {
+    //creates and returns an array of Problem objects 
     const problems = [];
-    for (let i = 0; i < 3; i++) {
+
+    for (let i = 0; i < 1; i++) {
         problems.push(new Problem());
     };
+
     return problems;
+};
+
+
+function parseInputValues(nodeArr) {
+    //combines each string value from inputs of same selectors from querySelectorAll
+    //returns combined values as an integer
+    let inputVal = '';
+
+    nodeArr.forEach((val) => {
+        inputVal += val.value;
+    });
+
+    return Number.parseInt(inputVal);
+};
+
+
+function setNodesWrong(nodeArr) {
+    //sets each node from querySelectorAll to have class "wrong" 
+    nodeArr.forEach((node) => {
+        node.classList.remove('correct');
+        node.classList.add('wrong');
+    });
+};
+
+
+function setNodesRight(nodeArr) {
+    //sets each node from querySelectorAll to have class "right" 
+    nodeArr.forEach((node) => {
+        node.classList.add('correct');
+        node.classList.remove('wrong');
+    });
 };

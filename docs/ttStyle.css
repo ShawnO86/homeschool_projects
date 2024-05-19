@@ -8,8 +8,8 @@ body {
 main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem 4rem;
+    justify-content: space-around;
+    gap: 4rem 6rem;
     padding: clamp(0.25rem, 1.25vw, 1rem);
     margin: auto;
     max-width: 1440px;
@@ -45,13 +45,13 @@ main {
     font-size: 1.75rem;
     padding: 0 1rem;
     font-weight: 700;
-    flex: 100%;
     text-align: center;
+    flex: 100%;
 }
 
 .cell {
     cursor: pointer;
-    padding: 0.5rem;
+    padding: clamp(0.25rem, 1vw, 1rem);
     margin: 0.2rem;
     border: 1px dashed #000;
 }
@@ -64,7 +64,10 @@ main {
 /*problem generation styles*/
 
 #problems {
-    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 1rem;
     background-color: #222;
     border-radius: 0.5rem;
 }
@@ -72,7 +75,7 @@ main {
 #multiply {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem 2rem;
+    gap: 1rem clamp(1rem, 3vw, 3rem);
     align-items: center;
     justify-content: center;
 }
@@ -86,6 +89,13 @@ main {
     height: 2rem;
     border-radius: 0.5rem;
     cursor: pointer;
+}
+
+.helpBtn {
+    font-weight: 900;
+    width: fit-content;
+    align-self: flex-end;
+    margin-bottom: 2rem;
 }
 
 .submitBtn:hover, .helpBtn:hover {

@@ -31,7 +31,7 @@ function main() {
     const completeProblems = [];
 
     //cycles through each problem to write table and add event listeners
-    problems.forEach((problem, index) => {
+    problems.forEach((problem) => {
         const submitBtn = document.createElement("button");
         const problemContainer = document.createElement("div");
         submitBtn.classList.add("submitBtn");

@@ -1,11 +1,9 @@
-
 /* TO DO:
 Highlight cell for each respective step?
 Fix tab indexing of inputs?
-
 */
 
-class Problem {
+export class Problem {
     constructor() {
         //generate two random numbers between 10 and 99
         this.num1 = Math.floor(Math.random() * 90 + 10);
@@ -21,6 +19,7 @@ class Problem {
     };
 
     write() {
+        //writes HTML table structure filled with values of this problem
         const num1Ones = this.num1 % 10;
         const num1Tens = Math.floor(this.num1 / 10);
         const num2Ones = this.num2 % 10;
@@ -177,18 +176,6 @@ class Problem {
         };
     };
 
-};
-
-
-export function createProblemArr() {
-    //creates and returns an array of Problem objects 
-    const problems = [];
-
-    for (let i = 0; i < 1; i++) {
-        problems.push(new Problem());
-    };
-
-    return problems;
 };
 
 

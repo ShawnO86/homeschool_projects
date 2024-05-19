@@ -1,5 +1,5 @@
 import { createTimesTable } from "./timesTable.js";
-import { createProblemArr } from "./problems.js";
+import { Problem } from "./problems.js";
 
 function resetPage() {
     //resets all HTML added with JavaScript.
@@ -11,6 +11,17 @@ function resetPage() {
     problemsSection.innerHTML = '';
 };
 
+
+function createProblemArr() {
+    //creates and returns an array of Problem objects 
+    const problems = [];
+    for (let i = 0; i < 3; i++) {
+        problems.push(new Problem());
+    };
+    return problems;
+};
+
+
 function main() {
     createTimesTable();
 
@@ -19,7 +30,7 @@ function main() {
     const problemSection = document.querySelector("#problems");
     const completeProblems = [];
 
-    //cycles through each problem to write and add event listeners
+    //cycles through each problem to write table and add event listeners
     problems.forEach((problem, index) => {
         const submitBtn = document.createElement("button");
         const problemContainer = document.createElement("div");
@@ -27,19 +38,25 @@ function main() {
         submitBtn.innerText = "Check " + problem.currStep;
         problemContainer.appendChild(problem.table);
         form.appendChild(problemContainer);
+        //writes each problem using objects method
         problem.write();
-        problem.table.classList.add("p_"+index);
+        //adds submit button to each problem
         problemContainer.appendChild(submitBtn);
+        //adds event listener to each problems submit button
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            //calls objects validate method using objects table property
             problem.validate(problem.table);
+            //changes submit button text to inform of current step
             submitBtn.innerText = "Check " + problem.currStep;
+            //if problem is correct, disables submit button and informs of correct answer
             if (problem.validated) {
                 submitBtn.disabled = true;
                 submitBtn.innerText = "Complete!";
                 submitBtn.classList.add("correct");
                 problemContainer.classList.add("shrink");
                 completeProblems.push(problem);
+                //compares amount of completed problems with amount of generated problems and gives feedback if all are complete
                 if (completeProblems.length == problems.length) {
                     const completedOut = document.createElement('div');
                     const resetBtn = document.createElement('button');
@@ -49,6 +66,7 @@ function main() {
                     resetBtn.innerText = "Reset?";
                     problemSection.appendChild(completedOut);
                     completedOut.appendChild(resetBtn);
+                    //resets problems if clicked and all are complete 
                     resetBtn.addEventListener("click", () => {
                         problemSection.removeChild(completedOut);
                         resetPage();
@@ -57,6 +75,12 @@ function main() {
                 };
             };
         });
+    });
+    //TO DO: add help button functionality - provide an animation showing how to complete each step
+    const helpBtn = document.querySelector(".helpBtn");
+    helpBtn.addEventListener("click", () => {
+        console.log("help btn clicked")
+        alert("help button not done yet ☺")
     });
 };
 

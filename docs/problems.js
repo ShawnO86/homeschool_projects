@@ -61,7 +61,7 @@ export class Problem {
 
         const tensHTML = `
             <tr>
-                <td>+</td>
+                <td></td>
                 <td><input type="text" class="multInput tensInput"></td>
                 <td><input type="text" class="multInput tensInput"></td>
                 <td><input type="text" class="multInput tensInput"></td>
@@ -140,7 +140,7 @@ export class Problem {
         const onesInput = problemEl.querySelectorAll('.onesInput');
         const tensInput = problemEl.querySelectorAll('.tensInput');
         const addInput = problemEl.querySelectorAll('.addInput');
-        console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
+        //console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
 
         if (this.currStep == 'ones') {
             let onesVal = parseInputValues(onesInput);

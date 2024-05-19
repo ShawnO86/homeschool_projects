@@ -79,8 +79,7 @@ function main() {
     //TO DO: add help button functionality - provide an animation showing how to complete each step
     const helpBtn = document.querySelector(".helpBtn");
     helpBtn.addEventListener("click", () => {
-        console.log("help btn clicked")
-        alert("help button not done yet ☺")
+        alert("😂 help button not done yet! 😂");
     });
 };
 

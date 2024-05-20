@@ -22,6 +22,10 @@ function createProblemArr() {
 };
 
 
+//TO DO setup way to show next problem after current one solved.
+//Can use completeProblems array or an increment 
+//Instead of looping over each problem, use a while loop to write next problem as previous are solved...
+
 function main() {
     createTimesTable();
 
@@ -35,7 +39,7 @@ function main() {
         const submitBtn = document.createElement("button");
         const problemContainer = document.createElement("div");
         submitBtn.classList.add("submitBtn");
-        submitBtn.innerText = "Check " + problem.currStep;
+        submitBtn.innerText = "Check " + problem.currStep + " answer";
         problemContainer.appendChild(problem.table);
         form.appendChild(problemContainer);
         //writes each problem using objects method
@@ -48,7 +52,7 @@ function main() {
             //calls objects validate method using objects table property
             problem.validate(problem.table);
             //changes submit button text to inform of current step
-            submitBtn.innerText = "Check " + problem.currStep;
+            submitBtn.innerText = "Check " + problem.currStep + " answer";
             //if problem is correct, disables submit button and informs of correct answer
             if (problem.validated) {
                 submitBtn.disabled = true;
@@ -75,11 +79,6 @@ function main() {
                 };
             };
         });
-    });
-    //TO DO: add help button functionality - provide an animation showing how to complete each step
-    const helpBtn = document.querySelector(".helpBtn");
-    helpBtn.addEventListener("click", () => {
-        alert("😂 help button not done yet! 😂");
     });
 };
 

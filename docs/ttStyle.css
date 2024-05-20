@@ -9,6 +9,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     gap: 4rem 6rem;
     padding: clamp(0.25rem, 1.25vw, 1rem);
     margin: auto;
@@ -70,6 +71,7 @@ main {
     padding: 1rem;
     background-color: #222;
     border-radius: 0.5rem;
+    height: fit-content;
 }
 
 #multiply {
@@ -91,10 +93,9 @@ main {
     cursor: pointer;
 }
 
-.helpBtn {
-    font-weight: 900;
+.help {
     width: fit-content;
-    align-self: flex-end;
+    align-self: center;
     margin-bottom: 2rem;
 }
 

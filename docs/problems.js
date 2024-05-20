@@ -77,7 +77,7 @@ export class Problem {
                 <td>${num2Ones}</td>
             </tr>
             <tr>
-                <td></td>
+                <td><sub>+carry</sub></td>
                 <td class=carryCell>
                 <input type="text" class="addCarry" id="addCarryThou">
                 </td>
@@ -140,11 +140,9 @@ export class Problem {
         const num2OnesOut = this.table.querySelector("#num2Ones");
         const num2TensOut = this.table.querySelector("#num2Tens");
     
-        const addHighlightListeners = (input, highlights, removeHighlights = []) => {
-                input.addEventListener("mouseover", () => {
-                    removeHighlights.forEach(el => el.classList.remove("highlight"));
-                    highlights.forEach(el => el.classList.add("highlight"));
-                });
+        const addHighlightListeners = (input, highlights) => {
+                input.addEventListener("mouseover", () => highlights.forEach(el => el.classList.add("highlight")));
+                input.addEventListener("mouseout", () => highlights.forEach(el => el.classList.remove("highlight")));
         };
     
         if (this.currStep == "ones") {
@@ -152,19 +150,17 @@ export class Problem {
             const onesTenInput = this.table.querySelector("#onesTen");
             const onesHunInput = this.table.querySelector("#onesHun");
     
-            addHighlightListeners(onesOneInput, [num1OnesOut, num2OnesOut], [num1TensOut, num2TensOut]);
-            addHighlightListeners(onesTenInput, [num2OnesOut, num1TensOut], [num1OnesOut, num2TensOut]);
-            addHighlightListeners(onesHunInput, [num2OnesOut, num1TensOut], [num1OnesOut, num2TensOut]);
+            addHighlightListeners(onesOneInput, [num1OnesOut, num2OnesOut]);
+            addHighlightListeners(onesTenInput, [num2OnesOut, num1TensOut]);
+            addHighlightListeners(onesHunInput, [num2OnesOut, num1TensOut]);
         } else if (this.currStep == "tens") {
-            const tensOneInput = this.table.querySelector("#tensOne");
             const tensTenInput = this.table.querySelector("#tensTen");
             const tensHunInput = this.table.querySelector("#tensHun");
             const tensThouInput = this.table.querySelector("#tensThou");
     
-            addHighlightListeners(tensOneInput, [], [num1OnesOut, num2OnesOut, num1TensOut, num2TensOut]);
-            addHighlightListeners(tensTenInput, [num1OnesOut, num2TensOut], [num2OnesOut, num1TensOut]);
-            addHighlightListeners(tensHunInput, [num1TensOut, num2TensOut], [num1OnesOut, num2OnesOut]);
-            addHighlightListeners(tensThouInput, [num1TensOut, num2TensOut], [num1OnesOut, num2OnesOut]);
+            addHighlightListeners(tensTenInput, [num1OnesOut, num2TensOut]);
+            addHighlightListeners(tensHunInput, [num1TensOut, num2TensOut]);
+            addHighlightListeners(tensThouInput, [num1TensOut, num2TensOut]);
         } else if (this.currStep == "addition") {
             const addOneInput = this.table.querySelector("#addOne");
             const addTenInput = this.table.querySelector("#addTen");
@@ -180,10 +176,10 @@ export class Problem {
             const tensAnsHun = this.table.querySelector("#tensAnsHun");
             const tensAnsThou = this.table.querySelector("#tensAnsThou");
     
-            addHighlightListeners(addOneInput, [onesAnsOne, tensAnsOne], [onesAnsTen, onesAnsHun, tensAnsTen, tensAnsHun, tensAnsThou]);
-            addHighlightListeners(addTenInput, [onesAnsTen, tensAnsTen], [onesAnsOne, onesAnsHun, tensAnsOne, tensAnsHun, tensAnsThou]);
-            addHighlightListeners(addHunInput, [onesAnsHun, tensAnsHun], [onesAnsOne, onesAnsTen, tensAnsOne, tensAnsTen, tensAnsThou]);
-            addHighlightListeners(addThouInput, [tensAnsThou], [onesAnsOne, onesAnsTen, onesAnsHun, tensAnsOne, tensAnsTen, tensAnsHun]);
+            addHighlightListeners(addOneInput, [onesAnsOne, tensAnsOne]);
+            addHighlightListeners(addTenInput, [onesAnsTen, tensAnsTen]);
+            addHighlightListeners(addHunInput, [onesAnsHun, tensAnsHun]);
+            addHighlightListeners(addThouInput, [tensAnsThou]);
         };
     };
 

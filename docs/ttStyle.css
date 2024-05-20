@@ -115,11 +115,13 @@ table {
 }
 
 td {
+    color: #ccc;
     border-radius: 0.25rem;
     border: 1px solid #aaa;
     min-width: 1.25rem;
     cursor: default;
     padding: 0 0.25rem;
+    transition: background-color 1s, border 1s, color 1s;
 }
 
 td sub {
@@ -138,6 +140,18 @@ td sub {
     font-size: 1.25rem;
     font-weight: 700;
     background-color: #eee;
+    border-radius: 0.25rem;
+}
+
+.highlight {
+    background-color: lightblue;
+    color: #000;
+    border: 1px solid goldenrod;
+}
+
+.highlightBorder {
+    background-color: lightblue;
+    border: 1px solid goldenrod;
 }
 
 .correct {

@@ -45,9 +45,9 @@ export class Problem {
                 <td id="num1Ones">${num1Ones}</td>
             </tr>
             <tr>
-                <td colspan="3">x</td>
-                <td id="num2Tens">${num2Tens}</td>
-                <td id="num2Ones">${num2Ones}</td>
+                <td colspan="3" class="bottomBorder">x</td>
+                <td id="num2Tens" class="bottomBorder">${num2Tens}</td>
+                <td id="num2Ones" class="bottomBorder">${num2Ones}</td>
             </tr>
             <tr class="onesOutput">
                 <td colspan="2"></td>
@@ -66,12 +66,12 @@ export class Problem {
             <tr>`;
 
         const finalHTML = `
-            <tr>
+            <tr class="shrink">
                 <td colspan="3"></td>
                 <td>${num1Tens}</td>
                 <td>${num1Ones}</td>
             </tr>
-            <tr>
+            <tr class="shrink">
                 <td colspan="3">x</td>
                 <td>${num2Tens}</td>
                 <td>${num2Ones}</td>
@@ -96,11 +96,11 @@ export class Problem {
                 <td id="onesAnsOne">${onesAnswerOnes}</td>
             </tr>
             <tr>
-                <td>+</td>
-                <td id="tensAnsThou">${tensAnswerThousands}</td>
-                <td id="tensAnsHun">${tensAnswerHundreds}</td>
-                <td id="tensAnsTen">${tensAnswerTens}</td>
-                <td id="tensAnsOne">${tensAnswerOnes}</td>
+                <td class="bottomBorder">+</td>
+                <td id="tensAnsThou" class="bottomBorder">${tensAnswerThousands}</td>
+                <td id="tensAnsHun" class="bottomBorder">${tensAnswerHundreds}</td>
+                <td id="tensAnsTen" class="bottomBorder">${tensAnswerTens}</td>
+                <td id="tensAnsOne" class="bottomBorder">${tensAnswerOnes}</td>
             </tr>
             <tr>
                 <td>=</td>

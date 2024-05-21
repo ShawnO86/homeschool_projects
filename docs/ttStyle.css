@@ -144,6 +144,10 @@ td sub {
     border-radius: 0.25rem;
 }
 
+.bottomBorder {
+    border-bottom: 3px solid #aaa;
+}
+
 .highlight {
     background-color: lightblue;
     color: #000;
@@ -178,6 +182,8 @@ td sub {
     opacity: 100%;
     transform: scale(100%);
     animation: shrink 1s ease-in 2s forwards;
+    pointer-events: none;
+    
 }
 
 @keyframes shrink {

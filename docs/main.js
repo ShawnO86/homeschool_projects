@@ -39,7 +39,7 @@ function main() {
         const submitBtn = document.createElement("button");
         const problemContainer = document.createElement("div");
         submitBtn.classList.add("submitBtn");
-        submitBtn.innerText = "Check " + problem.currStep + " answer";
+        submitBtn.innerText = "Next Step  ~>";
         problemContainer.appendChild(problem.table);
         form.appendChild(problemContainer);
         //writes each problem using objects method
@@ -51,8 +51,6 @@ function main() {
             e.preventDefault();
             //calls objects validate method using objects table property
             problem.validate(problem.table);
-            //changes submit button text to inform of current step
-            submitBtn.innerText = "Check " + problem.currStep + " answer";
             //if problem is correct, disables submit button and informs of correct answer
             if (problem.validated) {
                 submitBtn.disabled = true;

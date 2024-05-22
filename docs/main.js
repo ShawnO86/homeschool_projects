@@ -22,63 +22,48 @@ function createProblemArr() {
 };
 
 
-//TO DO setup way to show next problem after current one solved.
+//TO DO setup way to show next problem after current one solved. -WIP
 //Can use completeProblems array or an increment 
-//Instead of looping over each problem, use a while loop to write next problem as previous are solved...
 
 function main() {
     createTimesTable();
 
     const problems = createProblemArr();
+    const completedProblems = [];
+    let problemIndex = 0;
     const form = document.querySelector("#multiply");
-    const problemSection = document.querySelector("#problems");
-    const completeProblems = [];
 
-    //cycles through each problem to write table and add event listeners
-    problems.forEach((problem) => {
+    function displayCurrentProblem() {
+        //recursivly calls self as problems are completed.
+        const currProblem = problems[problemIndex];
         const submitBtn = document.createElement("button");
-        const problemContainer = document.createElement("div");
         submitBtn.classList.add("submitBtn");
-        submitBtn.innerText = "Next Step  ~>";
-        problemContainer.appendChild(problem.table);
-        form.appendChild(problemContainer);
-        //writes each problem using objects method
-        problem.write();
-        //adds submit button to each problem
-        problemContainer.appendChild(submitBtn);
-        //adds event listener to each problems submit button
+        submitBtn.innerText = "Next Step ->";
+        currProblem.write();
+        form.appendChild(currProblem.table);
+        form.appendChild(submitBtn);
+
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            //calls objects validate method using objects table property
-            problem.validate(problem.table);
-            //if problem is correct, disables submit button and informs of correct answer
-            if (problem.validated) {
-                submitBtn.disabled = true;
-                submitBtn.innerText = "Complete!";
-                submitBtn.classList.add("correct");
-                problemContainer.classList.add("shrink");
-                completeProblems.push(problem);
-                //compares amount of completed problems with amount of generated problems and gives feedback if all are complete
-                if (completeProblems.length == problems.length) {
-                    const completedOut = document.createElement('div');
-                    const resetBtn = document.createElement('button');
-                    completedOut.classList.add('completedOut');
-                    completedOut.innerText = "All Problems Complete!";
-                    resetBtn.classList.add('resetBtn');
-                    resetBtn.innerText = "Reset?";
-                    problemSection.appendChild(completedOut);
-                    completedOut.appendChild(resetBtn);
-                    //resets problems if clicked and all are complete 
-                    resetBtn.addEventListener("click", () => {
-                        problemSection.removeChild(completedOut);
-                        resetPage();
-                        main();
-                    })
+            currProblem.validate();
+
+            if (currProblem.validated) {
+                completedProblems.push(currProblem);
+                problemIndex += 1;
+                form.removeChild(currProblem.table);
+                form.removeChild(submitBtn);
+
+                if (problemIndex < problems.length) {
+                    displayCurrentProblem();
+                } else {
+                    //all problems complete
+                    console.log("complete!");
                 };
             };
         });
-    });
+    };
+
+    displayCurrentProblem();
 };
-
-
+ 
 main();

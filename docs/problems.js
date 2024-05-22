@@ -183,10 +183,10 @@ export class Problem {
         };
     };
 
-    validate(problemEl) {
-        const onesInput = problemEl.querySelectorAll('.onesInput');
-        const tensInput = problemEl.querySelectorAll('.tensInput');
-        const addInput = problemEl.querySelectorAll('.addInput');
+    validate() {
+        const onesInput = this.table.querySelectorAll('.onesInput');
+        const tensInput = this.table.querySelectorAll('.tensInput');
+        const addInput = this.table.querySelectorAll('.addInput');
         console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
 
         if (this.currStep == 'ones') {

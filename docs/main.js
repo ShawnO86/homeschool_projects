@@ -15,7 +15,7 @@ function resetPage() {
 function createProblemArr() {
     //creates and returns an array of Problem objects 
     const problems = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 5; i++) {
         problems.push(new Problem());
     };
     return problems;

@@ -187,7 +187,7 @@ export class Problem {
         const onesInput = this.table.querySelectorAll('.onesInput');
         const tensInput = this.table.querySelectorAll('.tensInput');
         const addInput = this.table.querySelectorAll('.addInput');
-        console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
+        //console.log("validate method", this.onesAnswer, this.tensAnswer, this.finalAnswer)
 
         if (this.currStep == 'ones') {
             let onesVal = parseInputValues(onesInput);

@@ -22,18 +22,14 @@ function createProblemArr() {
 };
 
 
-//TO DO setup way to show next problem after current one solved. -WIP
-//Can use completeProblems array or an increment 
-
 function main() {
-    createTimesTable();
-
     const problems = createProblemArr();
     const completedProblems = [];
     let problemIndex = 0;
     const form = document.querySelector("#multiply");
     const completedDisplay = document.querySelector("#problemCount")
     completedDisplay.innerText = completedProblems.length + ' out of ' + problems.length;
+    
 
     function displayCurrentProblem() {
         //recursivly calls itself as problems are completed.
@@ -72,7 +68,8 @@ function main() {
             };
         });
     };
-
+    
+    createTimesTable();
     displayCurrentProblem();
 };
  

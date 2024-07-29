@@ -1,10 +1,10 @@
 export function createTimesTable() {
-    const tableSection = document.getElementById('timesTable');
+    const tableFragment = document.createDocumentFragment();
     for (let i = 1; i <= 10; i++){
         const col = document.createElement('div');
-        tableSection.appendChild(col);
+        tableFragment.appendChild(col);
         col.classList.add('col_'+i);
-    
+        
         for (let j = 1; j <= 10; j++){
             const newDiv = document.createElement('div');
             col.appendChild(newDiv);
@@ -13,6 +13,8 @@ export function createTimesTable() {
             newDiv.innerText = i * j;
         };
     };
+    document.getElementById('timesTable').appendChild(tableFragment);
+
     
     const cells = document.querySelectorAll('.cell');
     const formulaOut = document.getElementById('tableFormula');
